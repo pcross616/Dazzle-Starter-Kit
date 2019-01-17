@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Line } from 'react-chartjs';
+import { Line } from 'react-chartjs-2';
 import { getRandomInt } from './util';
 
 class LineChart extends Component {
@@ -12,21 +12,21 @@ class LineChart extends Component {
         datasets: [
           {
             label: 'Singal',
-            fillColor: '#F1E7E5',
-            strokeColor: '#E8575A',
+            backgroundColor: '#F1E7E5',
+            borderColor: '#E8575A',
             pointColor: '#E8575A',
-            pointStrokeColor: '#fff',
-            pointHighlightFill: '#ff',
+            pointHoverBorderColor: '#fff',
+            pointHoverBackgroundColor: '#ff',
             pointHighlightStroke: 'rgba(220,220,220,1)',
             data: [10, 55, 69, 45, 87, 68, 74],
           },
           {
             label: 'Disturbance',
-            fillColor: 'rgba(151,187,205,0.2)',
-            strokeColor: 'rgba(151,187,205,1)',
+            backgroundColor: 'rgba(151,187,205,0.2)',
+            borderColor: 'rgba(151,187,205,1)',
             pointColor: 'rgba(151,187,205,1)',
-            pointStrokeColor: '#fff',
-            pointHighlightFill: '#fff',
+            pointHoverBorderColor: '#fff',
+            pointHoverBackgroundColor: '#fff',
             pointHighlightStroke: 'rgba(151,187,205,1)',
             data: [10, 55, 69, 45, 87, 68, 74],
           },
@@ -56,7 +56,7 @@ class LineChart extends Component {
   render() {
     return (
       <div >
-         <Line data={this.state.data} options={{responsive: true, animationSteps: 300 }} height="210" width="800"/>
+         <Line data={this.state.data} options={{tooltips: {enabled: true}, responsive: true,  animation: {duration: 300 }}} height={210} width={800}/>
        </div>
     );
   }

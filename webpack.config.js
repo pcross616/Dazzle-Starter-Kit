@@ -2,6 +2,7 @@ const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const proxy = require('./server/webpack-dev-proxy');
+const nodeModulesDir = path.resolve(__dirname, 'node_modules');
 
 function getEntrySources(sources) {
   if (process.env.NODE_ENV !== 'production') {
@@ -61,17 +62,18 @@ module.exports = {
 
   devServer: {
     historyApiFallback: { index: '/' },
+    hot: false,
     proxy: proxy(),
   },
 
   module: {
     preLoaders: [
-      { test: /\.js$/, loader: 'source-map-loader' },
-      { test: /\.js$/, loader: 'eslint-loader' },
+      { test: /\.js$/, loader: 'source-map-loader', exclude: [nodeModulesDir] },
+      { test: /\.js$/, loader: 'eslint-loader', exclude: [nodeModulesDir] },
     ],
     loaders: [
       { test: /\.css$/, loader: 'style-loader!css-loader' },
-      { test: /\.(js|jsx)$/, loaders: ['react-hot', 'babel'], exclude: /node_modules/ },
+      { test: /\.(js|jsx)$/, loaders: ['babel'], exclude: [nodeModulesDir] },
       { test: /\.json$/, loader: 'json-loader' },
       { test: /\.(png|jpg|jpeg|gif|svg)$/, loader: 'url-loader?prefix=img/&limit=5000' },
       { test: /\.(woff|woff2|ttf|eot)$/, loader: 'url-loader?prefix=font/&limit=5000' },

@@ -1,5 +1,6 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
 import Modal from 'react-modal';
+import PropTypes from 'prop-types';
 
 const AddWidgetDialog = ({ widgets, isModalOpen, onRequestClose, onWidgetSelect}) => {
   const widgetItems = Object.keys(widgets).map((widget, key) => {

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Bar } from 'react-chartjs';
+import { Bar } from 'react-chartjs-2';
 import { getRandomInt } from './util';
 
 class BarChart extends React.Component {
@@ -11,18 +11,18 @@ class BarChart extends React.Component {
         datasets: [
           {
             label: 'Bar Chart First dataset',
-            fillColor: '#E8575A',
-            strokeColor: '#E8575A',
-            highlightFill: 'rgba(220,220,220,0.75)',
-            highlightStroke: 'rgba(220,220,220,1)',
+            backgroundColor: '#E8575A',
+            borderColor: '#E8575A',
+            hoverBackgroundColor: 'rgba(220,220,220,0.75)',
+            hoverBorderColor: 'rgba(220,220,220,1)',
             data: [65, 59, 80, 81, 56, 55, 40],
           },
           {
             label: 'My Second dataset',
-            fillColor: '#0094D6',
-            strokeColor: '#0094D6',
-            highlightFill: 'rgba(151,187,205,0.75)',
-            highlightStroke: 'rgba(151,187,205,1)',
+            backgroundColor: '#0094D6',
+            borderColor: '#0094D6',
+            hoverBackgroundColor: 'rgba(151,187,205,0.75)',
+            hoverBorderColor: 'rgba(151,187,205,1)',
             data: [28, 48, 40, 19, 86, 27, 90],
           },
         ],
@@ -41,7 +41,13 @@ class BarChart extends React.Component {
         data: this.state.data,
         refreshIntervalId,
       });
+      console.log('tick');
     }, 2000);
+  }
+
+  componentDidUpdate() {
+    this.refs.chart.chartInstance.update();
+    console.log('update');
   }
 
   componentWillUnmount() {
@@ -49,9 +55,10 @@ class BarChart extends React.Component {
   }
 
   render() {
+    console.log('render');
     return (
       <div>
-         <Bar data={this.state.data}  options={{responsive: true, animationSteps: 300 }} height="210" width="800"/>
+         <Bar ref="chart" data={this.state.data} options={{tooltips: {enabled: true}, responsive: true, animation: {duration: 300 }}} height={210} width={800}/>
        </div>
     );
   }
